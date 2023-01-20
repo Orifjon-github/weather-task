@@ -15,6 +15,7 @@ class WeatherInformationResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'city' => $this->city->name,
             'time' => $this->time,
             'weather_name' => $this->weather_name,

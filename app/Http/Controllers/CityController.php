@@ -17,8 +17,8 @@ class CityController extends Controller
 
     public function index()
     {
-        $response = new CityResource(City::paginate(10));
-        return $this->response->success($response);
+        $response = CityResource::collection((City::paginate(10)));
+        return $this->response->success($response, 200);
     }
 
 
@@ -30,14 +30,20 @@ class CityController extends Controller
             'latitude' => $request->latitude,
         ]);
 
-        return $this->response->success();
+        return $this->response->success([], 201);
     }
 
 
     public function show($id)
     {
-        $response = new CityResource(City::find($id));
-        return $this->response->success($response);
+        $city = City::find($id) ?? null;
+        if ($city) {
+            $response = new CityResource($city);
+            return $this->response->success($response);
+        } else {
+            return $this->response->error(404);
+        }
+
     }
 
 }
