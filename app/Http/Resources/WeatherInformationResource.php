@@ -19,6 +19,10 @@ class WeatherInformationResource extends JsonResource
             'time' => $this->time,
             'weather_name' => $this->weather_name,
             'temperature' => $this->temperature,
+            'pressure' => $this->pressure,
+            'humidity' => $this->humidity,
+            'min_temp' => $this->min_temperature,
+            'max_temp' => $this->max_temperature,
         ];
     }
 }

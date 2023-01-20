@@ -12,7 +12,7 @@ class WeatherController extends Controller
 {
     public function index()
     {
-        $response = WeatherInformationResource::collection(WeatherInformation::limit(10)->get());
+        $response = WeatherInformationResource::collection(WeatherInformation::all());
         return json_encode([
             'success' => true,
             'code' => 200,

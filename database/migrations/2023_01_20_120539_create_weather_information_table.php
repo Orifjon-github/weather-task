@@ -16,15 +16,15 @@ return new class extends Migration
         Schema::create('weather_information', function (Blueprint $table) {
             $table->id();
             $table->foreignId('city_id')->constrained();
-            $table->string('time');
+            $table->dateTime('time');
             $table->string('weather_name');
             $table->string('longitude');
             $table->string('latitude');
-            $table->string('temperature');
-            $table->string('pressure');
-            $table->string('humidity');
-            $table->string('min_temperature');
-            $table->string('max_temperature');
+            $table->double('temperature');
+            $table->smallInteger('pressure');
+            $table->smallInteger('humidity');
+            $table->double('min_temperature');
+            $table->double('max_temperature');
             $table->timestamps();
         });
     }
