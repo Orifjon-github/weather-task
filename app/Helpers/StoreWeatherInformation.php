@@ -1,12 +1,12 @@
 <?php
 
-namespace App\TaskSchedule;
+namespace App\Helpers;
 
 use App\Models\City;
 use App\Models\WeatherInformation;
 use Carbon\Carbon;
 
-class CreateWeatherInformation
+class StoreWeatherInformation
 {
     public function __invoke() {
         $httpClient = new \GuzzleHttp\Client();
