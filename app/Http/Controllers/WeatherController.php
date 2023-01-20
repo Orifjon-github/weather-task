@@ -11,22 +11,13 @@ class WeatherController extends Controller
 {
     public function index()
     {
-        $httpClient = new \GuzzleHttp\Client();
-        $cities = City::all();
-        $response = array();
-
-        foreach ($cities as $city) {
-            $lon = $city->longitude;
-            $lat = $city->latitude;
-            $request = $httpClient->get("https://api.openweathermap.org/data/2.5/weather?lat={$lat}&lon={$lon}2&appid=".env('API_KEY')."&units=metric");
-            $body = json_decode($request->getBody()->getContents());
-            return $body;
-//            WeatherInformation::create([
-//                'time' =>
-//            ]);
-        }
-
-        return $response;
+        $response = WeatherInformation::find(1);
+        return json_encode([
+            'success' => true,
+            'code' => 200,
+            'message' => 'OK',
+            'data' => $response
+        ]);
 
 
 
