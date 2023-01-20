@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\CityController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +17,14 @@ use App\Http\Controllers\WeatherController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
-Route::resource('cities', \App\Http\Controllers\CityController::class);
+Route::resource('cities', CityController::class);
 
-Route::get('/weather', [WeatherController::class, 'index']);
-Route::get('/weather/{city}', [WeatherController::class, 'show']);
+//Route::resource('weather', WeatherController::class);
+
+Route::get('weather/all', [WeatherController::class, 'index']);
+Route::get('weather/{city?}', [WeatherController::class, 'show']);
+

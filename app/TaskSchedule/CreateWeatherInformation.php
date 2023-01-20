@@ -4,12 +4,14 @@ namespace App\TaskSchedule;
 
 use App\Models\City;
 use App\Models\WeatherInformation;
+use Carbon\Carbon;
 
 class CreateWeatherInformation
 {
     public function __invoke() {
         $httpClient = new \GuzzleHttp\Client();
         $cities = City::all();
+        $now = Carbon::now();
 
         foreach ($cities as $city) {
             $lon = $city->longitude;
@@ -18,7 +20,7 @@ class CreateWeatherInformation
             $body = json_decode($request->getBody()->getContents());
             WeatherInformation::create([
                 'city_id' => $city->id,
-                'time' => 'time',
+                'time' => $now,
                 'weather_name' => $body->weather[0]->main,
                 'longitude' => $lon,
                 'latitude' => $lat,
