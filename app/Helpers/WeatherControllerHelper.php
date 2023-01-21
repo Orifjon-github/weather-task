@@ -22,12 +22,14 @@ class WeatherControllerHelper
         $city_id = City::where('name', $request->city)->first()->id ?? null;
         if ($city_id) {
             $weather_city = WeatherInformation::where('city_id', $city_id)->get();
-            if (! isset($weather_city)) {
+            if (! empty($weather_city)) {
                 $data = WeatherInformationResource::collection($weather_city);
-                return $data;
+                return [200, $data];
+            } else {
+                return [406];
             }
         } else {
-            return false;
+            return [407];
         }
     }
 }

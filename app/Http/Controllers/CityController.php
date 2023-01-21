@@ -25,7 +25,7 @@ class CityController extends Controller
     {
         $data = $this->helper->helper_index();
         if ($data) {
-            return $this->response->success($data, 200);
+            return $this->response->success(200, $data);
         } else {
             return $this->response->error(404);
         }
@@ -42,7 +42,8 @@ class CityController extends Controller
         if ($validator->fails()) {
             return $this->response->error(405);
         } else {
-            return $this->response->success([], 201);
+            City::create($request->all());
+            return $this->response->success(201);
         }
     }
 
@@ -51,7 +52,7 @@ class CityController extends Controller
     {
         $data = $this->helper->helper_show($id);
         if ($data) {
-            return $this->response->success($data, 200);
+            return $this->response->success(200, $data);
         } else {
             return $this->response->error(404);
         }

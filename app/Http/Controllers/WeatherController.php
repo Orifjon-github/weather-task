@@ -21,18 +21,18 @@ class WeatherController extends Controller
     public function index() {
         $data = $this->helper->helper_index();
         if ($data) {
-            return ($this->response->success($data, 200));
+            return ($this->response->success( 200, $data));
         } else {
             return $this->response->error(404);
         }
     }
 
     public function show(Request $request) {
-        $data = $this->helper->helper_show($request);
-        if ($data) {
-            return ($this->response->success($data, 200));
-        } else {
-            return $this->response->error(404);
+        $status = $this->helper->helper_show($request);
+        switch ($status[0]) {
+            case 200: return ($this->response->success($status[0], $status[1]));
+            case 406: return ($this->response->error($status[0]));
+            case 407: return ($this->response->error($status[0]));
         }
     }
 }
