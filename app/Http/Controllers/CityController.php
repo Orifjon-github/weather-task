@@ -39,6 +39,10 @@ class CityController extends Controller
             'latitude' => 'required'
         ]);
 
+        // Validation Form Request dan foydalanmaganligimni sababi
+        // StoreCityRequestda validation fail bo'lganda auto bosh sahifaga redirect bo'lyapti
+        // Yechimini Google da 1 kun qidirdim. Lekn afsuski topgan kodlarim ishlamadi
+
         if ($validator->fails()) {
             return $this->response->error(405);
         } else {
