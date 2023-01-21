@@ -2,61 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CityControllerHelpers;
 use App\Helpers\Responses;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreCityRequest;
 use App\Http\Resources\CityResource;
 use App\Models\City;
 use App\Models\WeatherInformation;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
+use Illuminate\Validation\ValidationException;
 
 class CityController extends Controller
 {
 
-    public function __construct(Responses $responses) {
+    public function __construct(Responses $responses, CityControllerHelpers $helpers) {
         $this->response = $responses;
+        $this->helper = $helpers;
     }
 
     public function index()
     {
-        $cities = City::paginate(10) ?? null;
-        if ($cities) {
-            $response = CityResource::collection($cities);
-            return $this->response->success($response, 200);
+        $data = $this->helper->helper_index();
+        if ($data) {
+            return $this->response->success($data, 200);
         } else {
             return $this->response->error(404);
         }
-
     }
 
-    public function store(StoreCityRequest $request)
+    public function store(Request $request)
     {
-       if (! $request->validated()) {
-           return 1;
-           return $this->response->error( 405);
-       }
-
-       City::create([
-            'name' => $request->name,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:cities,name',
+            'longitude' => 'required',
+            'latitude' => 'required'
         ]);
 
-        return $this->response->success([], 201);
+        if ($validator->fails()) {
+            return $this->response->error(405);
+        } else {
+            return $this->response->success([], 201);
+        }
     }
 
 
     public function show($id)
     {
-        $city = City::find($id) ?? null;
-        if ($city) {
-            $response = new CityResource($city);
-            return $this->response->success($response);
+        $data = $this->helper->helper_show($id);
+        if ($data) {
+            return $this->response->success($data, 200);
         } else {
             return $this->response->error(404);
         }
-
     }
 
 }

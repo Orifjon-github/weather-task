@@ -14,7 +14,7 @@ class Responses
     public function error($code) {
         switch ($code) {
             case 404: return response()->json([ 'success' => false, 'code' => $code, 'message' => 'Not Found']);
-            case 405: return response()->json([ 'success' => false, 'code' => $code, 'message' => 'Validation Error: Name, Longitude and Latitude required!']);
+            case 405: return response()->json([ 'success' => false, 'code' => $code, 'message' => 'Validation Error: Name, Longitude and Latitude required! Name field is Unique']);
         }
     }
 }
