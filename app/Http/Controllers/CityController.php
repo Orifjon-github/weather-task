@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Responses;
+use App\Http\Requests\StoreCityRequest;
 use App\Http\Resources\CityResource;
 use App\Models\City;
 use App\Models\WeatherInformation;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 
 class CityController extends Controller
 {
@@ -17,13 +20,23 @@ class CityController extends Controller
 
     public function index()
     {
-        $response = CityResource::collection((City::paginate(10)));
-        return $this->response->success($response, 200);
+        $cities = City::paginate(10) ?? null;
+        if ($cities) {
+            $response = CityResource::collection($cities);
+            return $this->response->success($response, 200);
+        } else {
+            return $this->response->error(404);
+        }
+
     }
 
-
-    public function store(Request $request)
+    public function store(StoreCityRequest $request)
     {
+       if (! $request->validated()) {
+           return 1;
+           return $this->response->error( 405);
+       }
+
        City::create([
             'name' => $request->name,
             'longitude' => $request->longitude,
