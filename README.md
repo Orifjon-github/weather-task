@@ -61,7 +61,7 @@ Run Schedule, Hourly weather data will be saved to the database
 
 **or**
 
-**[Download](https://alinur.uz/storage/files/weather-api-postman-collection.json "download") and try Postman Collection**
+**<a href="https://alinur.uz/storage/files/weather-api-postman-collection.json" download>Download</a> and try Postman Collection**
 
 
 ## License
