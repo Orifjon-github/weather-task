@@ -59,6 +59,10 @@ Run Schedule, Hourly weather data will be saved to the database
 
 **More details about my APIs (Urls, Methods, Responses, Errors) are [here](https://github.com/Orifjon-github/weather-api-doc/blob/main/README.md)**
 
+**or**
+
+**[Download](https://alinur.uz/storage/files/weather-api-postman-collection.json "download") and try Postman Collection**
+
 
 ## License
 
